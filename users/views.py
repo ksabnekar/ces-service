@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -40,10 +41,3 @@ def login(request):
     }, status=HTTP_200_OK)
 
 
-class Logout(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, format=None):
-        user = request.user
-        user.auth_token.delete()
-        return Response({'success': 'user is logged out'}, status=HTTP_200_OK)
