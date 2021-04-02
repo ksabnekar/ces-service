@@ -12,11 +12,6 @@ from .serializers import UserSerializer
 from .token import token_expire_handler
 from rest_framework.response import Response
 
-"""
-	https://medium.com/@yerkebulan199/django-rest-framework-drf-token-authentication-with-expires-in-a05c1d2b7e05
-"""
-
-
 @api_view(["POST"])
 @permission_classes((AllowAny,))  # here we specify permission by default we set IsAuthenticated
 def login(request):

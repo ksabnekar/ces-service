@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from users import views
+from django.conf.urls import url
+from student import views as studentView
+from users import views as userView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/login/', views.login),
+    path('api/login/', userView.login),
+    url(r'^api/students/(?P<pk>[0-9]+)$', studentView.getStudent),
 ]

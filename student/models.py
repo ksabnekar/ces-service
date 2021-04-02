@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
 class Student(models.Model):
     name = models.CharField(max_length=50)
@@ -16,6 +17,7 @@ class Student(models.Model):
     def updated(self):
         self.updated_date = timezone.now()
         self.save()
+
 
 class Course(models.Model):
     course_name = models.CharField(max_length=50)
@@ -37,8 +39,8 @@ class Enrollment(models.Model):
     semester_name = models.CharField(max_length=30)
     start_date = models.DateField(default=timezone.now, blank=True, null=True)
     end_date = models.DateField(default=timezone.now, blank=True, null=True)
-    status = models.CharField(max_length=50)
-    grade = models.CharField (max_length=20)
+    status = models.CharField(max_length=50, blank=True)
+    grade = models.CharField(max_length=20, blank=True)
 
     def created(self):
         self.start_date = timezone.now()
