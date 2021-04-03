@@ -5,6 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class Student(models.Model):
     name = models.CharField(max_length=50)
+    nuid = models.IntegerField(blank=False, null=False)
     email = models.EmailField(max_length=200)
     cell_phone = models.CharField(max_length=50)
     start_date = models.DateField(default=timezone.now)
@@ -24,6 +25,7 @@ class Student(models.Model):
 
 class Course(models.Model):
     course_name = models.CharField(max_length=50)
+    course_id = models.CharField(max_length=8)
     professor = models.CharField(max_length=50)
     program = models.CharField(max_length=50)
     course_type = models.CharField(max_length=30)

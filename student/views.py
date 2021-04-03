@@ -19,7 +19,7 @@ def getStudent(request, pk):
     """
     permission_classes = [IsAuthenticated, IsAdminUser]
     try:
-        student = Student.objects.get(pk=pk)
+        student = Student.objects.get(nuid=pk)
 
     except Student.DoesNotExist:
         return Response(status=HTTP_404_NOT_FOUND)
