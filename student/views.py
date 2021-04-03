@@ -8,10 +8,13 @@ from rest_framework.status import (
 from rest_framework.response import Response
 from .models import Student, Enrollment
 from .serializers import StudentSerializer
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
 def getStudent(request, pk):
+    permission_classes = IsAuthenticatedOrReadOnly
     """
     Retrieve, update or delete a student instance.
     """
@@ -23,7 +26,7 @@ def getStudent(request, pk):
 
     if request.method == 'GET':
         serializer = StudentSerializer(student, context={'request': request})
-        return Response(serializer.data)
+        return Response({'data': serializer.data})
 
     elif request.method == 'PUT':
         serializer = StudentSerializer(student, data=request.data, context={'request': request})
