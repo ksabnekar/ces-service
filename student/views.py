@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
@@ -8,16 +8,16 @@ from rest_framework.status import (
 from rest_framework.response import Response
 from .models import Student, Enrollment
 from .serializers import StudentSerializer
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny,IsAdminUser
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
 def getStudent(request, pk):
-    permission_classes = IsAuthenticatedOrReadOnly
     """
     Retrieve, update or delete a student instance.
     """
+    permission_classes = [IsAuthenticated, IsAdminUser]
     try:
         student = Student.objects.get(pk=pk)
 

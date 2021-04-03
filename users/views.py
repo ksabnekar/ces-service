@@ -26,7 +26,6 @@ def login(request):
     # token_expire_handler will check, if the token is expired it will generate new one
     is_expired, token = token_expire_handler(token)
     user_serialized = UserSerializer(user)
-    print(user_serialized.data)
     return Response({
         'user': user_serialized.data,
         'token': token.key

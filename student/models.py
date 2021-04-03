@@ -18,6 +18,9 @@ class Student(models.Model):
         self.updated_date = timezone.now()
         self.save()
 
+    def __str__(self):
+        return self.name
+
 
 class Course(models.Model):
     course_name = models.CharField(max_length=50)
@@ -31,6 +34,9 @@ class Course(models.Model):
 
     def updated(self):
         self.save()
+
+    def __str__(self):
+        return self.course_name
 
 
 class Enrollment(models.Model):
@@ -47,4 +53,4 @@ class Enrollment(models.Model):
         self.save()
 
     def __str__(self):
-        return str(self.student)
+        return str(self.student) + str(self.course)
