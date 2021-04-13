@@ -3,6 +3,7 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
     HTTP_200_OK,
+    HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
 )
 from rest_framework.response import Response
@@ -67,3 +68,22 @@ def getEnrollment(request, pk):
     elif request.method == 'DELETE':
         enrollment.delete()
         return Response(status=HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def enrollment_list(request):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    if request.method == 'GET':
+        enrollments = Enrollment.objects.all()
+        serializer = EnrollmentSerializer(enrollments, context={'request': request}, many=True)
+        return Response({'data': serializer.data})
+
+    elif request.method == 'POST':
+        serializer = EnrollmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
