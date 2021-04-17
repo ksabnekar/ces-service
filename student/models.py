@@ -50,9 +50,5 @@ class Enrollment(models.Model):
     status = models.CharField(max_length=50, blank=True)
     grade = models.CharField(max_length=20, blank=True)
 
-    def created(self):
-        self.start_date = timezone.now()
-        self.save()
-
     def __str__(self):
         return str(self.student) + str(self.course)

@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^api/students/(?P<pk>[0-9]+)$', studentView.getStudent),
     url(r'^api/enrollments/$', studentView.enrollment_list),
     url(r'^api/enrollments/(?P<pk>[0-9]+)$', studentView.getEnrollment),
+    url(r'^api/getCourses/(?P<pk>[0-9]+)$', studentView.getCourses)
 ]
